@@ -182,7 +182,7 @@ function runCalculationEngine() {
 
   // 6. Isokinetic % (I)
   const iNumerator = (273.0 + tsInC) * 16670.0 * ((0.00346 * vic) + (actualVmLiter / 1000.0) * (paInmmHg + deltaHInmmHg) / (273.0 + tmInC));
-  const iDenominator = state.time * vs * (760.0 + psInmmHg) * an;
+  const iDenominator = state.time * vs * (paInmmHg + psInmmHg) * an;
   const isokineticPercent = iDenominator !== 0 ? excelRound(iNumerator / iDenominator, 1) : 0.0;
   const isIsokineticValid = isokineticPercent >= 90.0 && isokineticPercent <= 110.0;
 
