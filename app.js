@@ -121,7 +121,7 @@ function runCalculationEngine() {
   // 2. Average gas composition & Md
   const o2Avg = (state.o2_1 + state.o2_2 + state.o2_3) / 3.0;
   const co2Avg = (state.co2_1 + state.co2_2 + state.co2_3) / 3.0;
-  const md = excelRound(0.44 * co2Avg + 0.32 * o2Avg + 0.28 * (100.0 - o2Avg - co2Avg), 3);
+  const md = 0.44 * co2Avg + 0.32 * o2Avg + 0.28 * (100.0 - o2Avg - co2Avg);
 
   const kPb = paInmmHg / 25.4;
   const kPs = kPb + (psInInH2O / 13.6);
@@ -161,7 +161,7 @@ function runCalculationEngine() {
   // 5. ΔH calculation
   const deltaHInmmH2O = excelRound(hInmmH2O * kf, 1);
   const deltaHInInH2O = excelRound(hInInH2O * kf, 3);
-  const deltaHInmmHg = deltaHInmmH2O / 13.6;
+  const deltaHInmmHg = excelRound(hInInH2O * kf * 25.4 / 13.6, 1); // 시트 O37: ROUND(K.f×ΔP×25.4/13.6, 1)
 
   // Vic & An
   const vic = excelRound(actualVmLiter * state.xw / (100.0 - state.xw) * (18.0 / 22.4), 2);
@@ -193,7 +193,7 @@ function runCalculationEngine() {
     tsInC, tsInF, tmInC, tmInF, paInmmHg, paInhPa, psInInH2O, psInmmHg, hInInH2O, hInmmH2O,
     o2Avg: excelRound(o2Avg, 2),
     co2Avg: excelRound(co2Avg, 2),
-    md, vmFt3, vmLiter, actualVmLiter, kf,
+    md: excelRound(md, 3), vmFt3, vmLiter, actualVmLiter, kf,
     deltaH: deltaHInmmH2O, deltaHInInH2O, deltaHInmmHg: excelRound(deltaHInmmHg, 2),
     isokineticPercent, isIsokineticValid,
     rho0, rho, vs, ductAreaA, qa, qs, q, isO2CorrectionApplied, vic, an, vm0
