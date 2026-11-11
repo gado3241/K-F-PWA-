@@ -113,7 +113,7 @@ function runCalculationEngine() {
 
   const psInInH2O = state.psUnit === 'INH2O' ? excelRound(state.psVal, 1) : excelRound(state.psVal * 13.6 / 25.4, 1);
   const psInmmHgExact = state.psUnit === 'MMHG' ? state.psVal : (state.psVal * 25.4 / 13.6);
-  const psInmmHg = excelRound(psInmmHgExact, 1);
+  const psInmmHg = excelRound(psInmmHgExact, 2); // 기록지: Ps(mmHg) 소수 2자리
 
   const hInInH2O = state.hUnit === 'INH2O' ? state.hVal : (state.hVal / 25.4);
   const hInmmH2O = state.hUnit === 'MMH2O' ? state.hVal : (state.hVal * 25.4);
@@ -161,7 +161,7 @@ function runCalculationEngine() {
   // 5. ΔH calculation
   const deltaHInmmH2O = excelRound(hInmmH2O * kf, 1);
   const deltaHInInH2O = excelRound(hInInH2O * kf, 3);
-  const deltaHInmmHg = excelRound(hInInH2O * kf * 25.4 / 13.6, 1); // 시트 O37: ROUND(K.f×ΔP×25.4/13.6, 1)
+  const deltaHInmmHg = excelRound(hInInH2O * kf * 25.4 / 13.6, 2); // 기록지: ΔH(mmHg) 소수 2자리
 
   // Vic & An
   const vic = excelRound(actualVmLiter * state.xw / (100.0 - state.xw) * (18.0 / 22.4), 2);
